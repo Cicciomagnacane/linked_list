@@ -97,47 +97,47 @@ struct list_node *list_remove(struct list_node **head, struct list_node *item)
     return current_node;
 }
 
-// static void *list_reverse(struct list_node **head)  My first approach with reverse but dont work!
-// {
-//     struct list_node* prev = NULL;
-//     struct list_node* current = *head;
-//     struct list_node* next = NULL;
-//     while (current != NULL) {
-//         // Store next
-//         next = current->next;
-  
-//         // Reverse current node's pointer
-//         current->next = prev;
-  
-//         // Move pointers one position ahead.
-//         prev = current;
-//         current = next;
-//     }
-//     *head = prev;
-// }
-
-
-struct list_node *list_reverse(struct string_item **list, struct string_item **reversed_list)
+static void *list_reverse(struct list_node **head)  //My first approach
 {
-    struct string_item* removed_item = (struct string_item*)list_remove((struct list_node**)&list, (struct list_node*)list_get_tail(list));
-    
-    while(removed_item)
-    {
-        list_append((struct list_node**)&reversed_list, (struct list_node *)string_item_new(removed_item->string));
-        struct list_node *tail= (struct list_node*)list_get_tail(list);
-
-        if (!tail)
-        {
-            removed_item=NULL;
-        }
-        else
-        {
-            removed_item= (struct string_item*)list_remove((struct list_node**)&list,(struct list_node*)list_get_tail(list));
-            
-        }
+    struct list_node* prev = NULL;
+    struct list_node* current = *head;
+    struct list_node* next = NULL;
+    while (current != NULL) {
+        // Store next
+        next = current->next;
+  
+        // Reverse current node's pointer
+        current->next = prev;
+  
+        // Move pointers one position ahead.
+        prev = current;
+        current = next;
     }
-    return *reversed_list;
+    *head = prev;
 }
+
+
+// struct list_node *list_reverse(struct string_item **list, struct string_item **reversed_list)
+// {
+//     struct string_item* removed_item = (struct string_item*)list_remove((struct list_node**)&list, (struct list_node*)list_get_tail(list));
+    
+//     while(removed_item)
+//     {
+//         list_append((struct list_node**)&reversed_list, (struct list_node *)string_item_new(removed_item->string));
+//         struct list_node *tail= (struct list_node*)list_get_tail(list);
+
+//         if (!tail)
+//         {
+//             removed_item=NULL;
+//         }
+//         else
+//         {
+//             removed_item= (struct string_item*)list_remove((struct list_node**)&list,(struct list_node*)list_get_tail(list));
+            
+//         }
+//     }
+//     return *reversed_list;
+// }
 
 
 int main()
@@ -151,7 +151,7 @@ int main()
     list_append((struct list_node **)&my_linked_list, (struct list_node *)obj2);
     list_append((struct list_node **)&my_linked_list, (struct list_node *)obj3);
     list_append((struct list_node **)&my_linked_list, (struct list_node *)obj4);
-    struct string_item *string_item = my_linked_list;
+    //struct string_item *string_item = my_linked_list;
     
     //list_remove((struct list_node **)&my_linked_list, (struct list_node *)obj2);
   
@@ -161,11 +161,18 @@ int main()
     //     string_item = (struct string_item *)string_item->node.next;
     // }
 
-    struct string_item* reversed_list = NULL;
-    
-    struct string_item *reversed_item = list_reverse(&my_linked_list,&reversed_list);
+    //struct string_item* reversed_list = NULL;
+    //struct string_item *reversed_item = list_reverse(&my_linked_list,&reversed_list);
+    // while (reversed_list)
+    // {
+    //     printf("%s\n", reversed_item->string);
+    //     reversed_item = (struct string_item *)reversed_item->node.next;
+    // }
 
-    while (reversed_list)
+    list_reverse(&my_linked_list);
+    struct string_item* reversed_item = my_linked_list;
+
+    while (my_linked_list)
     {
         printf("%s\n", reversed_item->string);
         reversed_item = (struct string_item *)reversed_item->node.next;
