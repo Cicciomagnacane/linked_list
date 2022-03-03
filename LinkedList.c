@@ -1,6 +1,6 @@
 #include "LinkedList.h"
 
-struct string_item *string_item_new(const char *string)
+struct string_item *string_item_new(const char *string) //Create a new item
 {
     struct string_item *item = malloc(sizeof(struct string_item));
     if (!item)
@@ -11,7 +11,7 @@ struct string_item *string_item_new(const char *string)
     return item;
 }
 
-struct list_node *list_get_tail(struct list_node **head)
+struct list_node *list_get_tail(struct list_node **head) //Get the tail of the list
 {
     struct list_node *current_node = *head;
     struct list_node *last_node = NULL;
@@ -23,7 +23,7 @@ struct list_node *list_get_tail(struct list_node **head)
     return last_node;
 }
 
-struct list_node *list_append(struct list_node **head, struct list_node *item)
+struct list_node *list_append(struct list_node **head, struct list_node *item) //Add an item at the end of the list (tail)
 {
     struct list_node *tail = list_get_tail(head);
     if (!tail)
@@ -38,7 +38,7 @@ struct list_node *list_append(struct list_node **head, struct list_node *item)
     return item;
 }
 
-struct list_node *list_pop(struct list_node **head)
+struct list_node *list_pop(struct list_node **head) //Pop the the head of the list
 {
     struct list_node *current_head = *head;
     if (!current_head)
@@ -50,7 +50,7 @@ struct list_node *list_pop(struct list_node **head)
     return current_head;
 }
 
-struct list_node *list_remove(struct list_node **head, struct list_node *item)
+struct list_node *list_remove(struct list_node **head, struct list_node *item) //Removes an item from the list
 {
     struct list_node *current_node = *head;
     struct list_node *tmp_node = NULL;
@@ -84,7 +84,7 @@ struct list_node *list_remove(struct list_node **head, struct list_node *item)
     return current_node;
 }
 
-static void *list_reverse(struct list_node **head)  //My first approach
+static void *list_reverse(struct list_node **head) //Reverses the order of the elements in the list (ex. A,B,C --> C,B,A)
 {
     struct list_node* prev = NULL;
     struct list_node* current = *head;
